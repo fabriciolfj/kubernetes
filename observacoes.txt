@@ -1,0 +1,1 @@
+Service -> que retireciona todas as requisições para dentro do nosso deployment.
