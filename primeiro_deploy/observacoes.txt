@@ -1,0 +1,10 @@
+kubectl create -f meu_primeiro_deployment.yaml
+clusterIp: um ip para acessar dentro do cluster apenas (sempre será criado)
+
+kubectl scale --replicas=10 deployment meu-nginx para escalar
+
+Montando um deployment manualmente:
+kubeclt run nginx --image nginx --port=80
+kubectl expose deployment nginx (ja monta um service)
+kubeclt get endpotins (mas ainda consigo acessar apenas dentro do cluster)
+kubectl get services nginx -o yaml > meu_primeiro_service.yaml
