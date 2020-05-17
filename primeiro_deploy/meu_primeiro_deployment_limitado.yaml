@@ -1,0 +1,36 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+  generation: 1
+  name:  meu-nginx
+  namespace: default
+  labels:
+    run:  nginx
+spec:
+  replicas: 5  
+  selector:
+    matchLabels:
+      run: nginx
+  template:
+    metadata:
+      labels:
+        run:  nginx
+    spec:
+      containers:
+      - image:  nginx
+        imagePullPolicy: Always #se não tiver a imagem vai fazer download sempre
+        name:  nginx
+        ports: 
+        - containerPort: 80
+          protocol: TCP
+        resources: 
+          limits: #total que vai liberar, o maximo
+            memory: 512Mi
+            cpu: "500m"
+          requests: #o quanto que ele vai garantir
+            memory: 256Mi
+            cpu: "250m"  
+      dnsPolicy: ClusterFirst # vai sempre consultar o cluster primeiro para depois la fora
+      restartPolicy: Always # qualquer problema ele vai dar um restart
+      terminationGracePeriodSeconds: 30 # segundos para matar o container

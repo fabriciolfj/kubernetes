@@ -4,7 +4,34 @@ clusterIp: um ip para acessar dentro do cluster apenas (sempre será criado)
 kubectl scale --replicas=10 deployment meu-nginx para escalar
 
 Montando um deployment manualmente:
-kubeclt run nginx --image nginx --port=80
+kubectl run nginx --image nginx --port=80
 kubectl expose deployment nginx (ja monta um service)
-kubeclt get endpotins (mas ainda consigo acessar apenas dentro do cluster)
+kubectl get endpotins (mas ainda consigo acessar apenas dentro do cluster)
 kubectl get services nginx -o yaml > meu_primeiro_service.yaml
+
+Acessando de forma externa
+kubectl expose deployment nginx --type=NodePort
+
+kubectl get services meu-nginx -o yaml > meu_primeiro_service_nodeport.yaml
+
+editar o service com ele rodando:kubectl edit service nginx, ser para o deployment tb
+
+
+kubectl get pods -o wide : mostra aonde estão os pods
+
+kubectl exec -it nome de quem quero acessar -- bash : mesma função que o exec do docker
+
+kubectl create namespace nome;
+kubectl describe namespaces girpops;
+kubectl get namespaces giropops -o yaml > .\primeiro_deploy\meu_primeiro_namespace.yaml
+kubectl create -f nome_arquivo_namesapce.yaml
+
+limitrange -> limita a quantidade de recursos dentro do namepsace
+kubectl create -f .\primeiro_deploy\namespace_limitado.yaml -n giropops: criando o limit range e vinculando a um namespace
+kubectl get limitranges -n giropops ver os limitranges do namepsace giropops.
+kubectl  describe limitrange -n giropops limitando-recursos
+
+criando pods direto
+kubectl create -f .\pod_limitado.yaml
+kubectl get pods -n giropops ver os pods do namespace
+kubectl describe pods -n giropops para vermos que o namepsace criado com limite range, os pods já viram limitados conforme especificado.
