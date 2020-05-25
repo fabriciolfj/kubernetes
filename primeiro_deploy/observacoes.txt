@@ -44,3 +44,15 @@ Daemonset: e um replicaset, onde eu não escolho quantas replicas terei dele. Va
 esteja sendo executado em todos meus nós do meu cluster.
 
 Vers os endpoints de cada pod kubectl get endpoints
+
+
+Montando o ingress
+Criar um namepsace chamado ingress
+ kubectl create -f default-backend-service.yaml --validate=false -n ingress   criando dentro de um namespace
+ kubectl create -f .\nginx-ingress-controller-service-account.yaml -n ingress
+ kubectl create -f .\nginx-ingress-controller-clusterrole.yaml -n ingress
+ kubectl create -f .\nginx-ingress-controller-clusterrolebinding.yaml -n ingress
+
+ Para ver se foram criados:
+  kubectl get serviceaccounts -n ingress
+  kubectl get clusterrole -n ingress
