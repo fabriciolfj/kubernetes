@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    run: nginx
+  name: nginx
+  namespace: default
+spec:
+  progressDeadlineSeconds: 600 #tempo que ele vai fazer o deploy com sucesso
+  replicas: 1
+  revisionHistoryLimit: 10 #quantidade de vezes que tenho de revisions.
+  selector:
+    matchLabels:
+      run: nginx
+  strategy:
+    rollingUpdate: #estratégia do tipo de rollback, nesse caso no máximo 1 poderá ficar disponivel.
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        run: nginx
+    spec:
+      containers:
+      - name: nginx
+        imagePullPolicy: Always
+        image: nginx
+        volumeMounts: #volume montado dentro do pod
+          - name: nfs-pv
+            mountPath: /giropops
+        resources: {} #sem nenhum limite
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      volumes:
+      - name: nfs-pv
+        persistentVolumeClaim:
+          claimName: primeiro-pvc #e o volume que criamos
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+          

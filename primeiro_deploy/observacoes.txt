@@ -35,3 +35,12 @@ criando pods direto
 kubectl create -f .\pod_limitado.yaml
 kubectl get pods -n giropops ver os pods do namespace
 kubectl describe pods -n giropops para vermos que o namepsace criado com limite range, os pods já viram limitados conforme especificado.
+
+LABEL: utilizado para buscar dados (pods, replicasets e etc), exemplo kubectl get pods -l dc=UK
+
+Para ver em que nos os pods estão rodando:  kubectl get pods -o wide
+
+Daemonset: e um replicaset, onde eu não escolho quantas replicas terei dele. Vantagem: normalmente quando quero que meu pode 
+esteja sendo executado em todos meus nós do meu cluster.
+
+Vers os endpoints de cada pod kubectl get endpoints
